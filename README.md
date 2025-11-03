@@ -12,10 +12,10 @@ Built with Node.js + Express + MongoDB. Modular structure for scalability. Phase
 - ✅ **Task 4:** MongoDB connected via Mongoose (`src/config/db.js`). Verified locally (Compass/shell).
 - Health route: `GET /api/health` → `{"status": "running"}`.
 
-**Pending (Tasks 5-7: Team Next)**
-- Base health route (already in!).
-- Middleware: Helmet, Morgan, CORS.
-- GitHub CI: Actions for lint/test/build.
+## Phase 1 Status (Tasks 5-7: Done by [Your Name])
+- ✅ **Task 5:** Base health route (`GET /api/health`) created returning `{ status: "running" }`.
+- ✅ **Task 6:** Middleware integrated: Helmet (security), Morgan (logging), CORS (frontend access), and `express.json()` (body parsing).
+- ✅ **Task 7:** GitHub CI pipeline created (`.github/workflows/nodejs-ci.yml`) to automate lint/test/build.
 
 ## Quick Start
 1. Clone: `git clone https://github.com/shakthishankar/fintrix-backend.git`
