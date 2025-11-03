@@ -1,11 +1,17 @@
 require('dotenv').config();
 const express = require('express');
+const helmet = require('helmet');
+const morgan = require('morgan');
+const cors = require('cors');
 const connectDB = require('./config/db'); // Add this import
 const { connectPostgres } = require('./config/postgres');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Basic middleware for JSON parsing
+app.use(helmet());
+app.use(morgan('dev'));
+app.use(cors());
 app.use(express.json());
 
 // Health check route
