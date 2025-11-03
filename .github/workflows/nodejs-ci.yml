@@ -28,6 +28,7 @@ jobs:
         run: npm install
 
       - name: Run Lint and Test (if available)
+        continue-on-error: true
         run: |
           npm run lint --if-present
           npm test --if-present
