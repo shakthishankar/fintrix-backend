@@ -1,4 +1,8 @@
 require('dotenv').config();
+const userRoutes = require('./routes/userRoutes');
+const leadRoutes = require('./routes/leadRoutes');
+const dealRoutes = require('./routes/dealRoutes');
+
 const express = require('express');
 const helmet = require('helmet');
 const morgan = require('morgan');
@@ -13,6 +17,14 @@ app.use(helmet());
 app.use(morgan('dev'));
 app.use(cors());
 app.use(express.json());
+
+// Organization routes
+const organizationRoutes = require('./routes/organizationRoutes');
+app.use('/api/organizations', organizationRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/leads', leadRoutes);
+app.use('/api/deals', dealRoutes);
+
 
 // Health check route
 app.get('/api/health', (req, res) => {
