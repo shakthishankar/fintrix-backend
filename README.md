@@ -71,7 +71,3 @@ Phase 7	Blockchain-secured Deals	🔜
 - Env: dotenv
 - Dev: nodemon
   
-## Contributing
-Branch: `git checkout -b feature/phase-2-auth`  
-Commit: `git commit -m "feat: add user model"`  
-PR: Open to main.
