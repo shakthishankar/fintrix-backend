@@ -29,15 +29,53 @@ Built with Node.js + Express + MongoDB. Modular structure for scalability. Phase
 - ✅ **Task 7:** GitHub CI pipeline created (`.github/workflows/nodejs-ci.yml`) to automate lint/test/build.
 
  **Phase 2:** Auth (User model, JWT register/login).
-## Phase 3: CRM APIs (Orgs, Leads, Deals CRUD).
+## Phase 3: CRM & Lead Management APIs (Orgs, Leads, Deals CRUD).
 This phase adds the full CRM system including Organizations, Leads, and Deals.
 
- ✅ **Task 1:** Organizations Create, update, delete organizations, Filter by type (startup/investor) and region, Pagination support.
- ✅ **Task 2:** Users  Organization Relationship, Every user belongs to an organization, Enforced using foreign keys in PostgreSQL.
- ✅ **Task 3:** Leads Create and update leads, Fields: name, email, domain, status, addedBy, Filter by status, addedBy, domain, Pagination support.
- ✅ **Task 4:** Deals Complex model: multiple startups + multiple investors, Stages (enum): NEW, NEGOTIATING, CLOSED, 
-Status: ACTIVE / INACTIVE, Full CRUD, filtering, pagination.
- ✅ **Task 5:** Database IntegrationPrisma schema updated, PostgreSQL migrations generated, All relations and join tables created.
+✅ **Task 1: Organization Module**
+- Organization model created (`name`, `type`, `website`, `region`, `contact`).
+- CRUD routes added at **/api/organizations**.
+- Filtering by `type` and `region` implemented.
+- Pagination supported using `?page=&limit=`.
+
+✅ **Task 2: User–Organization Relationship**
+- Users linked to organizations via **PostgreSQL foreign key (organizationId)**.
+- Relationship enforced in Prisma schema.
+- User endpoints updated to include organization details.
+
+✅ **Task 3: Leads Module**
+- Lead model created (`name`, `email`, `domain`, `status`, `addedBy`).
+- CRUD routes added at **/api/leads**.
+- Filtering supported by:
+  - `status`
+  - `addedById`
+  - `domain`
+- Pagination integrated for lead listings.
+
+✅ **Task 4: Deals Module**
+- Complex many-to-many deal structure implemented:
+  - Multiple startups per deal
+  - Multiple investors per deal  
+- Enum fields added:
+  - Stage → `NEW`, `NEGOTIATING`, `DUE_DILIGENCE`, `CLOSED`
+  - Status → `ACTIVE`, `LOST`, `WON`
+- Full CRUD routes at **/api/deals**
+- Filtering by:
+  - Stage  
+  - Startup IDs  
+  - Investor IDs  
+- Pagination supported.
+
+✅ **Task 5: Database Integration**
+- Prisma schema fully updated with:
+  - Organizations
+  - Users
+  - Leads
+  - Deals
+  - Join tables: `DealStartup`, `DealInvestor`
+- Migrations generated & applied to PostgreSQL.
+- All foreign key constraints validated.
+
 
 ✅ Phase 3 fully completed — CRM APIs are ready for production and integration.
 
