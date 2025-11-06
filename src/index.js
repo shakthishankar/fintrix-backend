@@ -14,6 +14,10 @@ app.use(morgan('dev'));
 app.use(cors());
 app.use(express.json());
 
+// Organization routes
+const organizationRoutes = require('./routes/organizationRoutes');
+app.use('/api/organizations', organizationRoutes);
+
 // Health check route
 app.get('/api/health', (req, res) => {
   res.json({ status: 'running' });
