@@ -33,14 +33,10 @@ Built with Node.js + Express + MongoDB. Modular structure for scalability. Phase
 This phase adds the full CRM system including Organizations, Leads, and Deals.
 
  ✅ **Task 1:** Organizations Create, update, delete organizations, Filter by type (startup/investor) and region, Pagination support.
- 
  ✅ **Task 2:** Users  Organization Relationship, Every user belongs to an organization, Enforced using foreign keys in PostgreSQL.
- 
  ✅ **Task 3:** Leads Create and update leads, Fields: name, email, domain, status, addedBy, Filter by status, addedBy, domain, Pagination support.
- 
  ✅ **Task 4:** Deals Complex model: multiple startups + multiple investors, Stages (enum): NEW, NEGOTIATING, CLOSED, 
 Status: ACTIVE / INACTIVE, Full CRUD, filtering, pagination.
- 
  ✅ **Task 5:** Database IntegrationPrisma schema updated, PostgreSQL migrations generated, All relations and join tables created.
 
 ✅ Phase 3 fully completed — CRM APIs are ready for production and integration.
