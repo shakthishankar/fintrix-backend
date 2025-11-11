@@ -1,0 +1,100 @@
+// prisma/schema.prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  ADMIN
+  MEMBER
+  INVESTOR
+  STARTUP
+}
+
+model Organization {
+  id            Int            @id @default(autoincrement())
+  name          String
+  type          String
+  website       String?
+  region        String?
+  contact       String?
+  users         User[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  dealStartups  DealStartup[]
+  dealInvestors DealInvestor[]
+}
+
+model User {
+  id             Int          @id @default(autoincrement())
+  name           String
+  email          String       @unique
+  password       String?      // to be used in Auth phase
+  role           UserRole     @default(MEMBER)
+  organizationId Int
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  leads          Lead[]
+}
+
+model Lead {
+  id              Int     @id @default(autoincrement())
+  name            String
+  email           String
+  domain          String?
+  status          String  @default("new") // new, contacted, in_progress, closed
+
+  addedById Int
+  addedBy         User      @relation(fields: [addedById], references: [id], onDelete: Cascade)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
+
+enum DealStage {
+  NEW
+  NEGOTIATING
+  DUE_DILIGENCE
+  CLOSED
+}
+
+enum DealStatus {
+  ACTIVE
+  LOST
+  WON
+}
+
+model Deal {
+  id              Int        @id @default(autoincrement())
+  amount          Float?
+  stage           DealStage  @default(NEW)
+  status          DealStatus @default(ACTIVE)
+
+  startups        DealStartup[]
+  investors       DealInvestor[]
+
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+}
+
+model DealStartup {
+  id              Int          @id @default(autoincrement())
+  dealId          Int
+  orgId           Int
+
+  deal            Deal         @relation(fields: [dealId], references: [id], onDelete: Cascade)
+  org             Organization @relation(fields: [orgId], references: [id], onDelete: Cascade)
+}
+
+model DealInvestor {
+  id               Int          @id @default(autoincrement())
+  dealId           Int
+  orgId            Int
+
+  deal             Deal         @relation(fields: [dealId], references: [id], onDelete: Cascade)
+  org              Organization @relation(fields: [orgId], references: [id], onDelete: Cascade)
+}

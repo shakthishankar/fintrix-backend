@@ -1,0 +1,16 @@
+# Environment files
+.env
+.env.local
+
+# Node dependencies
+node_modules/
+
+# Prisma local artifacts
+prisma/dev.db
+prisma/generated/
+src/generated/
+
+# System and editor files
+.DS_Store
+.vscode/
+.idea/
