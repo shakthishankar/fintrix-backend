@@ -1,18 +1,20 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const validate = require("../middleware/validate");
-const { createDealSchema } = require("../validations/dealValidation");
-
 const {
   createDeal,
   getDeals,
+  getDealById,
   updateDeal,
   deleteDeal
-} = require('../controllers/dealController');
+} = require("../controllers/dealController");
 
-router.post('/', validate(createDealSchema), createDeal);
-router.get('/', getDeals);
-router.put('/:id', updateDeal);
-router.delete('/:id', deleteDeal);
+const validate = require("../middleware/validate");
+const { createDealSchema } = require("../validations/dealValidation");
+
+router.get("/", getDeals);
+router.get("/:id", getDealById);
+router.post("/", validate(createDealSchema), createDeal);
+router.put("/:id", updateDeal);
+router.delete("/:id", deleteDeal);
 
 module.exports = router;

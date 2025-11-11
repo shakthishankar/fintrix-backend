@@ -1,31 +1,20 @@
-// src/routes/userRoutes.js
-const express = require('express');
+const express = require("express");
 const router = express.Router();
+const {
+  getUsers,
+  getUserById,
+  createUser,
+  updateUser,
+  deleteUser
+} = require("../controllers/userController");
+
 const validate = require("../middleware/validate");
 const { createUserSchema } = require("../validations/userValidation");
 
-const {
-  createUser,
-  getUserById,
-  getUsers,
-  updateUser,
-  deleteUser,
-} = require('../controllers/userController');
-
-// POST /api/users - create (requires valid organizationId)
-
-router.post('/', validate(createUserSchema), createUser);
-
-// GET /api/users - list
-router.get('/', getUsers);
-
-// GET /api/users/:id - read one
-router.get('/:id', getUserById);
-
-// PUT /api/users/:id - update (re-validate organizationId if present)
-router.put('/:id', updateUser);
-
-// DELETE /api/users/:id - delete
-router.delete('/:id', deleteUser);
+router.get("/", getUsers);
+router.get("/:id", getUserById);
+router.post("/", validate(createUserSchema), createUser);
+router.put("/:id", updateUser);
+router.delete("/:id", deleteUser);
 
 module.exports = router;
