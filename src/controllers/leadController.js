@@ -73,6 +73,22 @@ const updateLead = async (req, res) => {
   }
 };
 
+// Get Lead by ID
+const getLeadById = async (req, res) => {
+  try {
+    const id = Number(req.params.id);
+    const lead = await prisma.lead.findUnique({
+      where: { id },
+      include: { addedBy: true }
+    });
+
+    if (!lead) return res.status(404).json({ error: "Lead not found" });
+    res.json({ success: true, lead });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
 // Delete Lead
 const deleteLead = async (req, res) => {
   try {
@@ -87,6 +103,7 @@ const deleteLead = async (req, res) => {
 module.exports = {
   createLead,
   getLeads,
+  getLeadById,
   updateLead,
   deleteLead
 };

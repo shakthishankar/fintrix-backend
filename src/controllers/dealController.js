@@ -61,6 +61,26 @@ const getDeals = async (req, res) => {
   }
 };
 
+// ✅ Get Deal by ID
+const getDealById = async (req, res) => {
+  try {
+    const id = Number(req.params.id);
+
+    const deal = await prisma.deal.findUnique({
+      where: { id },
+      include: {
+        startups: { include: { org: true } },
+        investors: { include: { org: true } }
+      }
+    });
+
+    if (!deal) return res.status(404).json({ error: "Deal not found" });
+    res.json({ success: true, deal });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
 // ✅ Update Deal
 const updateDeal = async (req, res) => {
   try {
@@ -97,6 +117,7 @@ const deleteDeal = async (req, res) => {
 module.exports = {
   createDeal,
   getDeals,
+  getDealById,
   updateDeal,
   deleteDeal,
 };

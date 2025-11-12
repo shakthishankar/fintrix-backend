@@ -25,6 +25,10 @@ app.use('/api/users', userRoutes);
 app.use('/api/leads', leadRoutes);
 app.use('/api/deals', dealRoutes);
 
+// Email Search routes
+const emailSearchRoutes = require("./routes/emailSearchRoutes");
+app.use("/api/email-search", emailSearchRoutes);
+
 
 // Health check route
 app.get('/api/health', (req, res) => {

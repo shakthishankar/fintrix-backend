@@ -33,7 +33,7 @@ model User {
   id             Int          @id @default(autoincrement())
   name           String
   email          String       @unique
-  password       String?      // to be used in Auth phase
+  password       String? // to be used in Auth phase
   role           UserRole     @default(MEMBER)
   organizationId Int
   organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Restrict, onUpdate: Cascade)
@@ -43,16 +43,16 @@ model User {
 }
 
 model Lead {
-  id              Int     @id @default(autoincrement())
-  name            String
-  email           String
-  domain          String?
-  status          String  @default("new") // new, contacted, in_progress, closed
+  id     Int     @id @default(autoincrement())
+  name   String
+  email  String
+  domain String?
+  status String  @default("new") // new, contacted, in_progress, closed
 
   addedById Int
-  addedBy         User      @relation(fields: [addedById], references: [id], onDelete: Cascade)
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
+  addedBy   User     @relation(fields: [addedById], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 enum DealStage {
@@ -69,32 +69,32 @@ enum DealStatus {
 }
 
 model Deal {
-  id              Int        @id @default(autoincrement())
-  amount          Float?
-  stage           DealStage  @default(NEW)
-  status          DealStatus @default(ACTIVE)
+  id     Int        @id @default(autoincrement())
+  amount Float?
+  stage  DealStage  @default(NEW)
+  status DealStatus @default(ACTIVE)
 
-  startups        DealStartup[]
-  investors       DealInvestor[]
+  startups  DealStartup[]
+  investors DealInvestor[]
 
-  createdAt       DateTime   @default(now())
-  updatedAt       DateTime   @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model DealStartup {
-  id              Int          @id @default(autoincrement())
-  dealId          Int
-  orgId           Int
+  id     Int @id @default(autoincrement())
+  dealId Int
+  orgId  Int
 
-  deal            Deal         @relation(fields: [dealId], references: [id], onDelete: Cascade)
-  org             Organization @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  deal Deal         @relation(fields: [dealId], references: [id], onDelete: Cascade)
+  org  Organization @relation(fields: [orgId], references: [id], onDelete: Cascade)
 }
 
 model DealInvestor {
-  id               Int          @id @default(autoincrement())
-  dealId           Int
-  orgId            Int
+  id     Int @id @default(autoincrement())
+  dealId Int
+  orgId  Int
 
-  deal             Deal         @relation(fields: [dealId], references: [id], onDelete: Cascade)
-  org              Organization @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  deal Deal         @relation(fields: [dealId], references: [id], onDelete: Cascade)
+  org  Organization @relation(fields: [orgId], references: [id], onDelete: Cascade)
 }
