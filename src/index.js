@@ -29,6 +29,9 @@ app.use('/api/deals', dealRoutes);
 const emailSearchRoutes = require("./routes/emailSearchRoutes");
 app.use("/api/email-search", emailSearchRoutes);
 
+//Domain Search routes
+const domainSearchRoutes = require("./routes/domainSearchRoutes");
+app.use("/api", domainSearchRoutes);
 
 // Health check route
 app.get('/api/health', (req, res) => {
