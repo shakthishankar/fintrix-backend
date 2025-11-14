@@ -1,30 +1,27 @@
 const mongoose = require("mongoose");
 
+// This schema matches the Phase 4 deliverable exactly 
 const emailSearchSchema = new mongoose.Schema({
-  email: { 
-    type: String, 
-    required: true 
-  },
-  domain: { 
-    type: String, 
-    required: true 
-  },
-  // --- ADDED ---
-  // This stores the result of the verification (true or false)
-  valid: {
-    type: Boolean,
-    required: true
-  },
-  // This will link to the user who ran the search
-  verifiedBy: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  },
-  // --- END ADDED ---
-  createdAt: { 
-    type: Date, 
-    default: Date.now 
-  }
+    email: { 
+        type: String, 
+        required: true 
+    },
+    domain: { 
+        type: String, 
+        required: true 
+    },
+    valid: { 
+        type: Boolean, 
+        default: false 
+    },
+    verifiedBy: { 
+        type: String, 
+        default: null 
+    }
+}, {
+    // This option tells Mongoose to automatically add
+    // the 'createdAt' field, as required by the task
+    timestamps: true 
 });
 
 module.exports = mongoose.model("EmailSearch", emailSearchSchema);
