@@ -29,6 +29,31 @@ Built with Node.js + Express + MongoDB. Modular structure for scalability. Phase
 - ✅ **Task 7:** GitHub CI pipeline created (`.github/workflows/nodejs-ci.yml`) to automate lint/test/build.
 
  **Phase 2:** Auth (User model, JWT register/login).
+
+
+![Node.js](https://img.shields.io/badge/Node.js-18%2B-brightgreen?style=for-the-badge&logo=node.js)
+![Express](https://img.shields.io/badge/Express-4.x-blue?style=for-the-badge&logo=express)
+![Prisma](https://img.shields.io/badge/Prisma-ORM-2C6F9C?style=for-the-badge&logo=prisma)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-14%2B-336791?style=for-the-badge&logo=postgresql)
+![JWT](https://img.shields.io/badge/JWT-Authenticated-success?style=for-the-badge)
+
+AI-powered CRM for startups, investors, and deal-flow automation with email/domain intelligence, future blockchain recording, and AI recommendations.
+
+## Current Progress (as of 30 Nov 2025)
+
+| Phase | Feature                         | Status           | Notes                              |
+|-------|---------------------------------|------------------|------------------------------------|
+| 1     | Setup + DB Connections          | Completed     | PostgreSQL (Prisma) + MongoDB      |
+| 2     | Authentication & JWT            | Completed     | Register / Login / Protected routes|
+| 3     | Core CRM (Org, Lead, Deal)      | Completed     | Full CRUD + filtering + pagination |
+| 4     | Email & Domain Search APIs      | Partially Completed| Endpoints + models ready           |
+| 5     | Blockchain Integration          | Pending       | Next in line                       |
+| 6     | AI Recommendations              | Pending       |                                    |
+| 7     | Security + Swagger + Tests      | Pending       |                                    |
+
+## API Endpoints (Working Right Now)
+
+### Auth
 ## Phase 3: CRM & Lead Management APIs (Orgs, Leads, Deals CRUD).
 This phase adds the full CRM system including Organizations, Leads, and Deals.
 
@@ -83,11 +108,11 @@ This phase adds the full CRM system including Organizations, Leads, and Deals.
 Phase	Feature	Status
 Phase 1	Setup & Infra	✅ Completed
 
-Phase 2	Authentication + JWT	⏳ Next
+Phase 2	Authentication + JWT	✅ Completed
 
 Phase 3	CRM Core (Org, Leads, Deals)	✅ Completed
 
-Phase 4	Email Search APIs	🔜
+Phase 4	Email Search APIs	✅ Completed
 
 Phase 5	Domain Intelligence	🔜
 

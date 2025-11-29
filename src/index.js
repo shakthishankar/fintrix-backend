@@ -2,6 +2,8 @@ require('dotenv').config();
 const userRoutes = require('./routes/userRoutes');
 const leadRoutes = require('./routes/leadRoutes');
 const dealRoutes = require('./routes/dealRoutes');
+const emailSearchRoutes = require("./routes/emailSearchRoutes");
+const authRoutes = require('./routes/authRoutes');
 
 const express = require('express');
 const helmet = require('helmet');
@@ -25,9 +27,10 @@ app.use('/api/users', userRoutes);
 app.use('/api/leads', leadRoutes);
 app.use('/api/deals', dealRoutes);
 
-// Email Search routes
-const emailSearchRoutes = require("./routes/emailSearchRoutes");
+// Email Search and auth routes
+
 app.use("/api/email-search", emailSearchRoutes);
+app.use('/api/auth', authRoutes);
 
 //Domain Search routes
 const domainSearchRoutes = require("./routes/domainSearchRoutes");

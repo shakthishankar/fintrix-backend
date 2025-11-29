@@ -1,4 +1,3 @@
-// prisma/schema.prisma
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,15 +9,29 @@ datasource db {
 
 enum UserRole {
   ADMIN
-  MEMBER
-  INVESTOR
   STARTUP
+  INVESTOR
+}
+
+model User {
+  id             Int         @id @default(autoincrement())
+  name           String
+  email          String      @unique
+  password       String      // Required for auth
+  role           UserRole    @default(INVESTOR)
+  organizationId Int?
+  organization   Organization? @relation(fields: [organizationId], references: [id])
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+  leads          Lead[]      @relation("AddedByUser")
+
+  @@map("users")
 }
 
 model Organization {
   id            Int            @id @default(autoincrement())
   name          String
-  type          String
+  type          String         // "startup" or "investor"
   website       String?
   region        String?
   contact       String?
@@ -27,32 +40,22 @@ model Organization {
   updatedAt     DateTime       @updatedAt
   dealStartups  DealStartup[]
   dealInvestors DealInvestor[]
-}
 
-model User {
-  id             Int          @id @default(autoincrement())
-  name           String
-  email          String       @unique
-  password       String? // to be used in Auth phase
-  role           UserRole     @default(MEMBER)
-  organizationId Int
-  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Restrict, onUpdate: Cascade)
-  createdAt      DateTime     @default(now())
-  updatedAt      DateTime     @updatedAt
-  leads          Lead[]
+  @@map("organizations")
 }
 
 model Lead {
-  id     Int     @id @default(autoincrement())
-  name   String
-  email  String
-  domain String?
-  status String  @default("new") // new, contacted, in_progress, closed
-
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  domain    String?
+  status    String   @default("new")
   addedById Int
-  addedBy   User     @relation(fields: [addedById], references: [id], onDelete: Cascade)
+  addedBy   User     @relation("AddedByUser", fields: [addedById], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@map("leads")
 }
 
 enum DealStage {
@@ -69,32 +72,36 @@ enum DealStatus {
 }
 
 model Deal {
-  id     Int        @id @default(autoincrement())
-  amount Float?
-  stage  DealStage  @default(NEW)
-  status DealStatus @default(ACTIVE)
-
+  id        Int           @id @default(autoincrement())
+  amount    Float?
+  stage     DealStage     @default(NEW)
+  status    DealStatus    @default(ACTIVE)
   startups  DealStartup[]
   investors DealInvestor[]
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  @@map("deals")
 }
 
 model DealStartup {
-  id     Int @id @default(autoincrement())
+  id     Int    @id @default(autoincrement())
   dealId Int
   orgId  Int
+  deal   Deal   @relation(fields: [dealId], references: [id], onDelete: Cascade)
+  org    Organization @relation(fields: [orgId], references: [id], onDelete: Cascade)
 
-  deal Deal         @relation(fields: [dealId], references: [id], onDelete: Cascade)
-  org  Organization @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  @@unique([dealId, orgId])
+  @@map("deal_startups")
 }
 
 model DealInvestor {
-  id     Int @id @default(autoincrement())
+  id     Int    @id @default(autoincrement())
   dealId Int
   orgId  Int
+  deal   Deal   @relation(fields: [dealId], references: [id], onDelete: Cascade)
+  org    Organization @relation(fields: [orgId], references: [id], onDelete: Cascade)
 
-  deal Deal         @relation(fields: [dealId], references: [id], onDelete: Cascade)
-  org  Organization @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  @@unique([dealId, orgId])
+  @@map("deal_investors")
 }
