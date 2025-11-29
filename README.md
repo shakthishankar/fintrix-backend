@@ -37,8 +37,8 @@ Built with Node.js + Express + MongoDB. Modular structure for scalability. Phase
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-14%2B-336791?style=for-the-badge&logo=postgresql)
 ![JWT](https://img.shields.io/badge/JWT-Authenticated-success?style=for-the-badge)
 
-AI-powered CRM for startups, investors, and deal-flow automation with email/domain intelligence, future blockchain recording, and AI recommendations.
-
+Live at: http://localhost:3000  
+Tested & working with Thunder Client / Postman
 ## Current Progress (as of 30 Nov 2025)
 
 | Phase | Feature                         | Status           | Notes                              |
@@ -46,7 +46,7 @@ AI-powered CRM for startups, investors, and deal-flow automation with email/doma
 | 1     | Setup + DB Connections          | Completed     | PostgreSQL (Prisma) + MongoDB      |
 | 2     | Authentication & JWT            | Completed     | Register / Login / Protected routes|
 | 3     | Core CRM (Org, Lead, Deal)      | Completed     | Full CRUD + filtering + pagination |
-| 4     | Email & Domain Search APIs      | Partially Completed| Endpoints + models ready           |
+| 4     | Email & Domain Search APIs      | Completed     | Endpoints + models ready           |
 | 5     | Blockchain Integration          | Pending       | Next in line                       |
 | 6     | AI Recommendations              | Pending       |                                    |
 | 7     | Security + Swagger + Tests      | Pending       |                                    |
