@@ -14,3 +14,9 @@ src/generated/
 .DS_Store
 .vscode/
 .idea/
+
+# AI Microservice (FastAPI)
+ai-service/venv/
+ai-service/__pycache__/
+ai-service/**/*.pyc
+ai-service/.pytest_cache/
