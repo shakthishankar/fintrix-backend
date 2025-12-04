@@ -7,6 +7,9 @@ const authRoutes = require("./routes/authRoutes");
 const aiRoutes = require("./routes/ai.routes");
 
 const express = require("express");
+const { initBlockchain } = require("./config/blockchain");
+const blockchainRoutes = require("./routes/blockchain.routes");
+
 const helmet = require("helmet");
 const morgan = require("morgan");
 const cors = require("cors");
@@ -51,6 +54,9 @@ app.use("/api/ai", aiRoutes);
 //Domain Search routes
 const domainSearchRoutes = require("./routes/domainSearchRoutes");
 app.use("/api", domainSearchRoutes);
+// Blockchain routes
+initBlockchain(); // Initialize blockchain connection
+app.use("/api/blockchain", blockchainRoutes);
 
 // Health check route
 app.get("/api/health", (req, res) => {

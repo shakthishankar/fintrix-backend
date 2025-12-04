@@ -111,6 +111,62 @@ This phase adds the full CRM system including Organizations, Leads, and Deals.
 - Migrations generated & applied to PostgreSQL.
 - All foreign key constraints validated.
 
+## Phase 5: Blockchain Integration
+
+# Blockchain Integration Backend (Ethers.js + SQLite)
+
+## What this project includes
+
+- Express server with two endpoints:
+  - `POST /api/blockchain/store` — send data to smart contract and store tx metadata in SQLite.
+  - `GET  /api/blockchain/fetch/:id` — try to fetch on-chain record via contract call, falls back to DB record.
+- Ethers.js integration (use Sepolia / Polygon testnet via PROVIDER_URL).
+- SQLite DB (`data/blockchain.db`) storing txHash, blockNumber, timestamp, id, data.
+- Retry logic for sending transactions.
+
+## Quick start
+
+1. Install Node >= 18
+2. Copy `.env.example` to `.env` and fill values:
+   - `PROVIDER_URL` (Sepolia or Polygon testnet RPC)
+   - `PRIVATE_KEY` (testnet account with funds)
+   - `CONTRACT_ADDRESS` (deployed contract address)
+3. If you have a custom contract ABI, replace `contract_abi.json` or update `ABI_FILE` in `.env`.
+4. Install dependencies:
+   ```
+   npm install
+   ```
+5. Start server:
+   ```
+   npm start
+   ```
+6. Endpoints:
+   - Store: `POST http://localhost:4000/api/blockchain/store` with JSON body:
+     ```json
+     {
+       "id": "deal-123",
+       "data": "some verified search data"
+     }
+     ```
+   - Fetch: `GET http://localhost:4000/api/blockchain/fetch/deal-123`
+
+## Contract requirements (example)
+
+The server expects the contract to implement these functions; you can adapt the ABI:
+
+```solidity
+function store(string calldata id, string calldata data) external returns (bool);
+function fetch(string calldata id) external view returns (string memory data, uint256 timestamp);
+```
+
+If your contract uses different method names/signatures, update `contract_abi.json`.
+
+## Notes
+
+- This project does _not_ deploy a contract. It interacts with an existing deployed contract (supply address + ABI).
+- For testing without a real contract, you can use a "mock" ABI included here; the server will still submit transactions but they may revert if ABI/methods don't match the deployed contract.
+- The SQLite DB is created at `data/blockchain.db`.
+
 ### ✅**Phase 6: AI Deal Recommender (AI Microservice Integration)**
 
 This phase integrates a standalone **FastAPI-based AI microservice** with the Fintrix Node backend.  
